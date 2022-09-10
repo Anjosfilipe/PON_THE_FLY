@@ -79,21 +79,19 @@ namespace PON_THE_FLY
             }
             if(voo.IDVoo < 9999)
             {
-            voo.IDVoo = IDVoo + 1;
+            voo.IDVoo = listaVoo.Count + 1;
             listaVoo.Add(voo);
             }
             else
             {
-                voo.IDVoo = 00;
-                voo.IDVoo = IDVoo + 1;
-                listaVoo.Add(voo);
+                Console.WriteLine("Numero maximo de voo cadastrados");
+                Environment.Exit(0); // necessita de um break 
             }
 
             return voo;
         } /// funcionando
           /// 
           /// Rodando perfeitamente. já embutido nele um controle de dados.
-          /// Necessita: Realizar encrementação de id 
           /// Necessita: Vincular o break correto para nossa aplicação e sincronizar a fonte de dados.  
 
         public Voo BuscarVoo(List<Voo> listaVoo, int id)
