@@ -8,7 +8,7 @@ namespace PON_THE_FLY
 {
     internal class Voo
     {
-        private int IDVoo { get; set; }
+        internal int IDVoo { get; set; }
         public string Destino { get; set; }
         public string Aeronave { get; set; }
         public DateTime DataVoo { get; set; }
@@ -77,10 +77,10 @@ namespace PON_THE_FLY
                 voo.Situacao = situacao;
                 Console.WriteLine("Cadastro Realizado com sucesso!");
             }
-            if(voo.IDVoo < 9999)
+            if (voo.IDVoo < 9999)
             {
-            voo.IDVoo = listaVoo.Count + 1;
-            listaVoo.Add(voo);
+                voo.IDVoo = listaVoo.Count + 1;
+                listaVoo.Add(voo);
             }
             else
             {
@@ -93,8 +93,7 @@ namespace PON_THE_FLY
           /// 
           /// Rodando perfeitamente. já embutido nele um controle de dados.
           /// Necessita: Vincular o break correto para nossa aplicação e sincronizar a fonte de dados.  
-
-        public Voo BuscarVoo(List<Voo> listaVoo, int id)
+        public Voo LocalizarVoo(List<Voo> listaVoo, int id)
         {
             bool achei = false;
             Voo v = new Voo();
@@ -133,52 +132,52 @@ namespace PON_THE_FLY
          /// Rodando perfeitamente.
         public Voo EditarVoo(List<Voo> listaVoo)
         {
-            bool stop = false;
+            //bool stop = false;
             Voo v = new Voo();
-            Console.WriteLine("Informe o ID do voo para busca: ");
+            Console.WriteLine("Informe o ID do voo para editar: ");
             int id = int.Parse(Console.ReadLine());
-            do
+            // do
+            // {
+            v = LocalizarVoo(listaVoo, id);
+            Console.WriteLine("1 - Editar Destino");
+            Console.WriteLine("2 - Editar Aeronave");
+            Console.WriteLine("3 - Editar Data do voo");
+            Console.WriteLine("4 - Situação");
+            Console.WriteLine("0 - Sair");
+            int op = int.Parse(Console.ReadLine());
+            switch (op)
             {
-                v = BuscarVoo(listaVoo, id);
-                Console.WriteLine("1 - Editar Destino");
-                Console.WriteLine("2 - Editar Aeronave");
-                Console.WriteLine("3 - Editar Data do voo");
-                Console.WriteLine("4 - Situação");
-                Console.WriteLine("0 - Sair");
-                int op = int.Parse(Console.ReadLine());
-                switch (op)
-                {
-                    case 0:
-                        stop = true;
-                        break;
-                    case 1:
-                        Console.WriteLine("Informe o NOVO destino:");
-                        string destino = Console.ReadLine();
-                        v.Destino = destino;
-                        break;
+                //case 0:
+                    //stop = true;
+                   // break;
+                case 1:
+                    Console.WriteLine("Informe o NOVO destino:");
+                    string destino = Console.ReadLine();
+                    v.Destino = destino;
+                    break;
 
-                    case 2:
-                        Console.WriteLine("Informe A NOVA Aeronave:");
-                        string aeronave = Console.ReadLine();
-                        v.Aeronave = aeronave;
-                        break;
+                case 2:
+                    Console.WriteLine("Informe A NOVA Aeronave:");
+                    string aeronave = Console.ReadLine();
+                    v.Aeronave = aeronave;
+                    break;
 
-                    case 3:
-                        Console.WriteLine("Informe o NOVO Data do voo:");
-                        DateTime data = DateTime.Parse(Console.ReadLine());
-                        v.DataVoo = data;
-                        break;
+                case 3:
+                    Console.WriteLine("Informe o NOVO Data do voo:");
+                    DateTime data = DateTime.Parse(Console.ReadLine());
+                    v.DataVoo = data;
+                    break;
 
-                    case 4:
-                        Console.WriteLine("Informe o NOVO Aniversario:");
-                        char situacao = char.Parse(Console.ReadLine());
-                        v.Situacao = situacao;
-                        break;
+                case 4:
+                    Console.WriteLine("Informe o NOVO Aniversario:");
+                    char situacao = char.Parse(Console.ReadLine());
+                    v.Situacao = situacao;
+                    break;
 
-                    default:
-                        break;
-                }
-            } while (stop == true);
+                default:
+                    break;
+            }
+            //} while (stop == true);
             Console.WriteLine(" >> Voo editado com sucesso <<");
             return v;
         }/// funcionando
