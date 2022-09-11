@@ -29,28 +29,30 @@ namespace PON_THE_FLY
             IDAeronave.Add("2");
 
             voo.CadastrarVoo(listaVoo, IATA, IDAeronave);
-            //voo.CadastrarVoo(listaVoo, IATA, IDAeronave);
+            voo.CadastrarVoo(listaVoo, IATA, IDAeronave);
 
             //Console.WriteLine("Digite o Id (4 numeros) do voo que deseja buscar ");
             //int id = int.Parse(Console.ReadLine());
             //voo.LocalizarVoo(listaVoo, id);
 
             voo.ImprimirVoo(listaVoo);
+            voo.Gravar_Dados(listaVoo);
+            voo.Ler_Arquivo();
 
             //voo.EditarVoo(listaVoo);
 
             //voo.ImprimirVoo(listaVoo);
 
-            passagem.CadastrarPassagem(listaPassagem, listaVoo);
-            passagem.imprimirpassagem(listaPassagem);
+            //passagem.CadastrarPassagem(listaPassagem, listaVoo);
+            //passagem.imprimirpassagem(listaPassagem);
 
-            Console.WriteLine("\nDigite o Id (4 numeros) do voo que deseja buscar a passagem: ");
-            int idvoo = int.Parse(Console.ReadLine());
-            Console.WriteLine("\nDigite o Id da passagem que deseja buscar: ");
-            int idp = int.Parse(Console.ReadLine());
-            passagem.LocalizarPassagem(listaPassagem, listaVoo,idvoo, idp);
+            //Console.WriteLine("\nDigite o Id (4 numeros) do voo que deseja buscar a passagem: ");
+            //int idvoo = int.Parse(Console.ReadLine());
+            //Console.WriteLine("\nDigite o Id da passagem que deseja buscar: ");
+            //int idp = int.Parse(Console.ReadLine());
+            //passagem.LocalizarPassagem(listaPassagem, listaVoo,idvoo, idp);
 
-            passagem.EditarPassagem(listaPassagem, listaVoo);
+            //passagem.EditarPassagem(listaPassagem, listaVoo);
 
         }
     }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -146,7 +147,60 @@ namespace PON_THE_FLY
         }/// funcionando
          /// 
          /// Rodando perfeitamente.
+        public void Gravar_Dados(List<PassagemVoo> listaPassagem)
+        {
+            Console.WriteLine("Iniciando a Gravação de Dados...");
+            try
+            {
+                StreamWriter sw = new StreamWriter("c:\\Users\\Filipe Anjos\\Documents\\ATIVIDADES_ESTAGIO\\PON_THE_FLY\\PassagemVoo.dat");  //Instancia um Objeto StreamWriter (Classe de Manipulação de Arquivos)
+                //sw.WriteLine("Treinamento de C#");  //Escreve uma linha no Arquivo
+                //sw.WriteLine("maria;araraquara;190;contato;"); //Exemplo de escrita - formato da escrita será de acordo com a necessidade do projeto
+                foreach (PassagemVoo i in listaPassagem)
+                {
+                    sw.WriteLine("PA" + i.IdPassagem + i.IdVoo + i.DataUltimaOperacao + i.Valor + i.Situacao);
+                }
+                sw.Close();  // Comando para Fechar o Arquivo
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Exception: " + e.Message);
+            }
+            finally
+            {
+                Console.WriteLine("Executando o Bloco de Comandos.");
+            }
+            Console.WriteLine("FIM DA GRAVAÇÃO");
+            Console.ReadKey();
 
+        }
+
+        public void Ler_Arquivo()
+        {
+            string line;
+            try
+            {
+                StreamReader sr = new StreamReader("c:\\Users\\Filipe Anjos\\Documents\\ATIVIDADES_ESTAGIO\\PON_THE_FLY\\PassagemVoo.dat");//Instancia um Objeto StreamReader (Classe de Manipulação de Leitura de Arquivos)
+                line = sr.ReadLine(); //Faz a Leitura de uma linha do arquivo e atribui a string line
+                while (line != null)// Laço de Repetição para fazer a leitura de linhas do arquivo até o EOF (End Of File - Fim do Arquivo)
+                {
+                    Console.WriteLine(line);//Imprime o retorno do arquivo no Console
+                    line = sr.ReadLine(); //Faz a Leitura de linha do arquivo e atribui a string line
+                }
+                sr.Close();//Fecha o Arquivo
+                Console.WriteLine("Fim da Leitura do Arquivo");
+                Console.ReadLine();
+            }
+            catch (Exception e) // Tratamento de erro na abertura do arquivo
+            {
+                Console.WriteLine("Exception: " + e.Message);
+            }
+            finally
+            {
+                Console.WriteLine("Executando o Bloco de Comando - Sem Erros");
+            }
+            Console.WriteLine("FIM DA LEITURA");
+            Console.ReadKey();
+        }
         public override string ToString()
         {
             return "\nID da passagem: " + this.IdPassagem + "\nID do Voo: " + this.IdVoo + "\nData da Ultima Operação: " + this.DataUltimaOperacao + "\nValor da Passagem: " + this.Valor + "\nSituação da passagem: " + this.Situacao;
