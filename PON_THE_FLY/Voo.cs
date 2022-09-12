@@ -15,7 +15,6 @@ namespace PON_THE_FLY
         public DateTime DataVoo { get; set; }
         public DateTime DataCadastro { get; set; }
         public char Situacao { get; set; }
-
         public Voo()
         {
 
@@ -186,7 +185,6 @@ namespace PON_THE_FLY
          /// 
          /// Rodando perfeitamente. <summary>
          /// funcionando
-
         public void Gravar_Dados(List<Voo> listaVoo)
         {
             Console.WriteLine("Iniciando a Gravação de Dados...");
@@ -197,7 +195,7 @@ namespace PON_THE_FLY
                 //sw.WriteLine("maria;araraquara;190;contato;"); //Exemplo de escrita - formato da escrita será de acordo com a necessidade do projeto
                 foreach (Voo i in listaVoo)
                 {
-                    sw.WriteLine("V"+i.IDVoo.ToString("D4") + i.Destino + i.Aeronave + i.DataVoo.ToString("g") + i.DataCadastro.ToString("g") + i.Situacao);
+                    sw.WriteLine("V"+i.IDVoo.ToString("D4") + i.Destino + i.Aeronave + i.DataVoo.ToString("ddMMyyyy"+"HHmm") + i.DataCadastro.ToString("ddMMyyyy" + "HHmm") + i.Situacao);
                 }
                 sw.Close();  // Comando para Fechar o Arquivo
             }

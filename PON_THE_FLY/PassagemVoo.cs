@@ -14,12 +14,10 @@ namespace PON_THE_FLY
         public DateTime DataUltimaOperacao { get; set; }
         public double Valor { get; set; }
         public char Situacao { get; set; }
-
         public PassagemVoo()
         {
 
         }
-
         public void CadastrarPassagem(List<PassagemVoo> listaPassagem, List<Voo> listaVoo)
         {
             foreach (Voo i in listaVoo)
@@ -55,7 +53,6 @@ namespace PON_THE_FLY
         }/// funcionando
          /// 
          /// Rodando perfeitamente.
-
         public void imprimirpassagem(List<PassagemVoo> listaPassagem)
         {
             foreach (PassagemVoo p in listaPassagem)
@@ -68,7 +65,6 @@ namespace PON_THE_FLY
         }/// funcionando
          /// 
          /// Rodando perfeitamente.
-
         public PassagemVoo LocalizarPassagem(List<PassagemVoo> listaPassagem, List<Voo> listaVoo, int idVoo, int idPassagem)
         {
             bool achei = false;
@@ -97,7 +93,6 @@ namespace PON_THE_FLY
         }/// funcionando
          /// 
          /// Rodando perfeitamente.
-
         public PassagemVoo EditarPassagem(List<PassagemVoo> listaPassagem, List<Voo> listaVoo)
         {
             PassagemVoo p = new();
@@ -158,7 +153,7 @@ namespace PON_THE_FLY
                 //sw.WriteLine("maria;araraquara;190;contato;"); //Exemplo de escrita - formato da escrita será de acordo com a necessidade do projeto
                 foreach (PassagemVoo i in listaPassagem)
                 {
-                    sw.WriteLine("PA" + i.IdPassagem.ToString("D4") + i.IdVoo.ToString("D4") + i.DataUltimaOperacao.ToString("g") + i.Valor + i.Situacao);
+                    sw.WriteLine("PA" + i.IdPassagem.ToString("D4") + i.IdVoo.ToString("D4") + i.DataUltimaOperacao.ToString("ddMMyyyy" + "HHmm") + i.Valor + i.Situacao);
                 }
                 sw.Close();  // Comando para Fechar o Arquivo
             }
@@ -174,7 +169,6 @@ namespace PON_THE_FLY
             Console.ReadKey();
 
         }
-
         public void Ler_Arquivo()
         {
             string line;
