@@ -9,7 +9,7 @@ namespace PON_THE_FLY
         {
 
             ///////////////////////////
-            
+
 
             Voo voo = new();
             List<Voo> listaVoo = new();
@@ -29,21 +29,22 @@ namespace PON_THE_FLY
             IDAeronave.Add("2");
 
             voo.CadastrarVoo(listaVoo, IATA, IDAeronave);
-            voo.CadastrarVoo(listaVoo, IATA, IDAeronave);
+            //voo.CadastrarVoo(listaVoo, IATA, IDAeronave);
 
             //Console.WriteLine("Digite o Id (4 numeros) do voo que deseja buscar ");
             //int id = int.Parse(Console.ReadLine());
             //voo.LocalizarVoo(listaVoo, id);
 
-            voo.ImprimirVoo(listaVoo);
-            voo.Gravar_Dados(listaVoo);
-            voo.Ler_Arquivo();
+            //voo.Gravar_Dados(listaVoo);
+            //voo.ImprimirVoo(listaVoo);
+            //voo.Imprimindo_Arquivo();
 
             //voo.EditarVoo(listaVoo);
 
             //voo.ImprimirVoo(listaVoo);
 
-            //passagem.CadastrarPassagem(listaPassagem, listaVoo);
+            passagem.CadastrarPassagem(listaPassagem, listaVoo);
+            passagem.Gravar_Dados(listaPassagem);
             //passagem.imprimirpassagem(listaPassagem);
 
             //Console.WriteLine("\nDigite o Id (4 numeros) do voo que deseja buscar a passagem: ");
@@ -53,6 +54,7 @@ namespace PON_THE_FLY
             //passagem.LocalizarPassagem(listaPassagem, listaVoo,idvoo, idp);
 
             //passagem.EditarPassagem(listaPassagem, listaVoo);
+
 
         }
     }

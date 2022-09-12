@@ -18,6 +18,16 @@ namespace PON_THE_FLY
         {
 
         }
+
+        public PassagemVoo(int idPassagem, int idVoo, DateTime dataUltimaOperacao, double valor, char situacao)
+        {
+            IdPassagem = idPassagem;
+            IdVoo = idVoo;
+            DataUltimaOperacao = dataUltimaOperacao;
+            Valor = valor;
+            Situacao = situacao;
+        }
+
         public void CadastrarPassagem(List<PassagemVoo> listaPassagem, List<Voo> listaVoo)
         {
             foreach (Voo i in listaVoo)
@@ -34,6 +44,11 @@ namespace PON_THE_FLY
                 }
                 else
                 {
+                    if(Ler_Arquivo() == true)
+                    {
+                        Upload(listaPassagem);
+
+                    }
                     for (int p = 0; p < assentos; p++)
                     {
                         PassagemVoo passagem = new();
@@ -46,7 +61,6 @@ namespace PON_THE_FLY
                         passagem.IdPassagem = p;
                         listaPassagem.Add(passagem);
                     }
-
                     Console.WriteLine("Passagens geradas com sucesso!");
                 }
             }
@@ -145,6 +159,9 @@ namespace PON_THE_FLY
          /// Rodando perfeitamente.
         public void Gravar_Dados(List<PassagemVoo> listaPassagem)
         {
+            if(Ler_Arquivo() == false)
+            {
+
             Console.WriteLine("Iniciando a Gravação de Dados...");
             try
             {
@@ -167,9 +184,63 @@ namespace PON_THE_FLY
             }
             Console.WriteLine("FIM DA GRAVAÇÃO");
             Console.ReadKey();
+            }
 
         }
-        public void Ler_Arquivo()
+        public bool Ler_Arquivo()
+        {
+            string line;
+            try
+            {
+                StreamReader sr = new StreamReader("c:\\Users\\Filipe Anjos\\Documents\\ATIVIDADES_ESTAGIO\\PON_THE_FLY\\PassagemVoo.dat");//Instancia um Objeto StreamReader (Classe de Manipulação de Leitura de Arquivos)
+                line = sr.ReadLine(); //Faz a Leitura de uma linha do arquivo e atribui a string line
+                while (line != null)// Laço de Repetição para fazer a leitura de linhas do arquivo até o EOF (End Of File - Fim do Arquivo)
+                {
+
+                    line = sr.ReadLine(); //Faz a Leitura de linha do arquivo e atribui a string line
+                    return true;
+
+                }
+                sr.Close();//Fecha o Arquivo
+                Console.WriteLine("FIM DA LEITURA");
+                Console.ReadKey();
+            }
+            catch // Tratamento de erro na abertura do arquivo
+            {
+                Console.WriteLine("Arquivo inexistente! - Gerar arquivo");
+                return false;
+            }
+            if (line != null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public void Upload(List<PassagemVoo> listaPassagem)
+        {
+            string line;
+            StreamReader sr = new StreamReader("c:\\Users\\Filipe Anjos\\Documents\\ATIVIDADES_ESTAGIO\\PON_THE_FLY\\PassagemVoo.dat");//Instancia um Objeto StreamReader (Classe de Manipulação de Leitura de Arquivos)
+            line = sr.ReadLine(); //Faz a Leitura de uma linha do arquivo e atribui a string line
+            while (line != null)
+            {
+                PassagemVoo pv = new();
+                string DataUltimaOperacao = line.Substring(11, 2) + "/" + line.Substring(13, 2) + "/" + line.Substring(15, 4) + ' ' + line.Substring(19, 2) + ':' + line.Substring(21, 2);
+                pv = new(
+                pv.IdPassagem = int.Parse(line.Substring(2,4)),
+                pv.IdVoo = int.Parse(line.Substring(6,4)),
+                pv.DataUltimaOperacao = DateTime.Parse(DataUltimaOperacao),
+                pv.Valor = double.Parse(line.Substring(23,3)),
+                pv.Situacao = char.Parse(line.Substring(26, 1))
+                );
+                listaPassagem.Add(pv);
+                line = sr.ReadLine();
+            }
+        }
+        public void imprimindo_Arquivo()
         {
             string line;
             try

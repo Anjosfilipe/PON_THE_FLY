@@ -19,6 +19,37 @@ namespace PON_THE_FLY
         {
 
         }
+        public Voo(int iDVoo, string destino, string aeronave, DateTime dataVoo, DateTime dataCadastro, char situacao)
+        {
+            IDVoo = iDVoo;
+            Destino = destino;
+            Aeronave = aeronave;
+            DataVoo = dataVoo;
+            DataCadastro = dataCadastro;
+            Situacao = situacao;
+        }
+        public void Upload(List<Voo> listaVoo)
+        {
+            string line;
+            StreamReader sr = new StreamReader("c:\\Users\\Filipe Anjos\\Documents\\ATIVIDADES_ESTAGIO\\PON_THE_FLY\\Voo.dat");//Instancia um Objeto StreamReader (Classe de Manipulação de Leitura de Arquivos)
+            line = sr.ReadLine(); //Faz a Leitura de uma linha do arquivo e atribui a string line
+            while (line != null)
+            {
+                Voo v = new();
+                string datavoo = line.Substring(9, 2) + "/" + line.Substring(11, 2) + "/" + line.Substring(13, 4) + ' ' + line.Substring(17, 2) + ':' + line.Substring(19, 2);
+                string datacadastro = line.Substring(21, 2) + "/" + line.Substring(23, 2) + "/" + line.Substring(25, 4) + ' ' + line.Substring(29, 2) + ':' + line.Substring(31, 2);
+                v = new(
+                v.IDVoo = int.Parse(line.Substring(1, 4)),
+                v.Destino = line.Substring(5, 3),
+                v.Aeronave = line.Substring(8, 1),
+                v.DataVoo = DateTime.Parse(datavoo),
+                v.DataCadastro = DateTime.Parse(datacadastro),
+                v.Situacao = char.Parse(line.Substring(33, 1))
+                );
+                listaVoo.Add(v);
+                line = sr.ReadLine();
+            }
+        }
         public Voo CadastrarVoo(List<Voo> listaVoo, List<string> IATA, List<string> IDAeronave)
         {
             Voo voo = new Voo();
@@ -79,7 +110,10 @@ namespace PON_THE_FLY
             }
             if (voo.IDVoo < 9999)
             {
-
+                if(Ler_Arquivo() == true)
+                {
+                    Upload(listaVoo);
+                }
                 voo.IDVoo = listaVoo.Count + 1;
                 listaVoo.Add(voo);
             }
@@ -187,32 +221,36 @@ namespace PON_THE_FLY
          /// funcionando
         public void Gravar_Dados(List<Voo> listaVoo)
         {
-            Console.WriteLine("Iniciando a Gravação de Dados...");
-            try
+            bool existe = Ler_Arquivo();
+            if (existe == false)
             {
-                StreamWriter sw = new StreamWriter("c:\\Users\\Filipe Anjos\\Documents\\ATIVIDADES_ESTAGIO\\PON_THE_FLY\\Voo.dat");  //Instancia um Objeto StreamWriter (Classe de Manipulação de Arquivos)
-                //sw.WriteLine("Treinamento de C#");  //Escreve uma linha no Arquivo
-                //sw.WriteLine("maria;araraquara;190;contato;"); //Exemplo de escrita - formato da escrita será de acordo com a necessidade do projeto
-                foreach (Voo i in listaVoo)
+                Console.WriteLine("Iniciando a Gravação de Dados...");
+                try
                 {
-                    sw.WriteLine("V"+i.IDVoo.ToString("D4") + i.Destino + i.Aeronave + i.DataVoo.ToString("ddMMyyyy"+"HHmm") + i.DataCadastro.ToString("ddMMyyyy" + "HHmm") + i.Situacao);
+                    StreamWriter sw = new StreamWriter("c:\\Users\\Filipe Anjos\\Documents\\ATIVIDADES_ESTAGIO\\PON_THE_FLY\\Voo.dat");  //Instancia um Objeto StreamWriter (Classe de Manipulação de Arquivos)
+                                                                                                                                         //sw.WriteLine("Treinamento de C#");  //Escreve uma linha no Arquivo
+                                                                                                                                         //sw.WriteLine("maria;araraquara;190;contato;"); //Exemplo de escrita - formato da escrita será de acordo com a necessidade do projeto
+                    foreach (Voo i in listaVoo)
+                    {
+                        sw.WriteLine("V" + i.IDVoo.ToString("D4") + i.Destino + i.Aeronave + i.DataVoo.ToString("ddMMyyyy" + "HHmm") + i.DataCadastro.ToString("ddMMyyyy" + "HHmm") + i.Situacao);
+                    }
+                    sw.Close();  // Comando para Fechar o Arquivo
                 }
-                sw.Close();  // Comando para Fechar o Arquivo
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Exception: " + e.Message);
-            }
-            finally
-            {
-                Console.WriteLine("Executando o Bloco de Comandos.");
-            }
-            Console.WriteLine("FIM DA GRAVAÇÃO");
-            Console.ReadKey();
+                catch (Exception e)
+                {
+                    Console.WriteLine("Exception: " + e.Message);
+                }
+                finally
+                {
+                    Console.WriteLine("Executando o Bloco de Comandos.");
+                }
+                Console.WriteLine("FIM DA GRAVAÇÃO");
+                Console.ReadKey();
 
+            }
+           
         }
-
-        public void Ler_Arquivo()
+        public void Imprimindo_Arquivo()
         {
             string line;
             try
@@ -232,18 +270,44 @@ namespace PON_THE_FLY
             {
                 Console.WriteLine("Exception: " + e.Message);
             }
-            finally
-            {
-                Console.WriteLine("Executando o Bloco de Comando - Sem Erros");
-            }
-            Console.WriteLine("FIM DA LEITURA");
-            Console.ReadKey();
-        }
 
+        }
+        public bool Ler_Arquivo()
+        {
+            string line;
+            try
+            {
+                StreamReader sr = new StreamReader("c:\\Users\\Filipe Anjos\\Documents\\ATIVIDADES_ESTAGIO\\PON_THE_FLY\\Voo.dat");//Instancia um Objeto StreamReader (Classe de Manipulação de Leitura de Arquivos)
+                line = sr.ReadLine(); //Faz a Leitura de uma linha do arquivo e atribui a string line
+                while (line != null)// Laço de Repetição para fazer a leitura de linhas do arquivo até o EOF (End Of File - Fim do Arquivo)
+                {
+
+                    line = sr.ReadLine(); //Faz a Leitura de linha do arquivo e atribui a string line
+                    return true;
+
+                }
+                sr.Close();//Fecha o Arquivo
+                Console.WriteLine("FIM DA LEITURA");
+                Console.ReadKey();
+            }
+            catch // Tratamento de erro na abertura do arquivo
+            {
+                Console.WriteLine("Arquivo inexistente! - Gerar arquivo");
+                return false;
+            }
+            if (line != null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
         public override string ToString()
         {
-            return "\nID do Voo: " + this.IDVoo + "\nDestino: " + this.Destino + "\nAernave: " + this.Aeronave + "\nData do voo: " + this.DataVoo + "\nData de Cadastro do Voo: " + this.DataCadastro + "\nSituação: " + this.Situacao;
+            return "\nID do Voo:V " + this.IDVoo.ToString("D4") + "\nDestino: " + this.Destino + "\nAernave: " + this.Aeronave + "\nData do voo: " + this.DataVoo + "\nData de Cadastro do Voo: " + this.DataCadastro + "\nSituação: " + this.Situacao;
         }
     }
 }
-    
+
