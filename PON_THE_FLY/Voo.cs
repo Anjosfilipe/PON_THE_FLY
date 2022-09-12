@@ -80,6 +80,7 @@ namespace PON_THE_FLY
             }
             if (voo.IDVoo < 9999)
             {
+
                 voo.IDVoo = listaVoo.Count + 1;
                 listaVoo.Add(voo);
             }
@@ -196,7 +197,7 @@ namespace PON_THE_FLY
                 //sw.WriteLine("maria;araraquara;190;contato;"); //Exemplo de escrita - formato da escrita será de acordo com a necessidade do projeto
                 foreach (Voo i in listaVoo)
                 {
-                    sw.WriteLine("V"+i.IDVoo + i.Destino + i.Aeronave + i.DataVoo + i.DataCadastro + i.Situacao);
+                    sw.WriteLine("V"+i.IDVoo.ToString("D4") + i.Destino + i.Aeronave + i.DataVoo.ToString("g") + i.DataCadastro.ToString("g") + i.Situacao);
                 }
                 sw.Close();  // Comando para Fechar o Arquivo
             }

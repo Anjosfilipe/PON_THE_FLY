@@ -44,6 +44,7 @@ namespace PON_THE_FLY
                         passagem.Valor = valor;
                         char situacao = 'L';
                         passagem.Situacao = situacao;
+                        p.ToString("D8");
                         passagem.IdPassagem = p;
                         listaPassagem.Add(passagem);
                     }
@@ -157,7 +158,7 @@ namespace PON_THE_FLY
                 //sw.WriteLine("maria;araraquara;190;contato;"); //Exemplo de escrita - formato da escrita será de acordo com a necessidade do projeto
                 foreach (PassagemVoo i in listaPassagem)
                 {
-                    sw.WriteLine("PA" + i.IdPassagem + i.IdVoo + i.DataUltimaOperacao + i.Valor + i.Situacao);
+                    sw.WriteLine("PA" + i.IdPassagem.ToString("D4") + i.IdVoo.ToString("D4") + i.DataUltimaOperacao.ToString("g") + i.Valor + i.Situacao);
                 }
                 sw.Close();  // Comando para Fechar o Arquivo
             }
